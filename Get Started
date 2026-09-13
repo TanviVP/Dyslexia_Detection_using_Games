@@ -1,0 +1,263 @@
+# Get Started – Dyslexia Detection System
+
+This guide explains how to set up and run the project locally after cloning the repository.
+
+---
+
+# Important: Virtual Environment (venv)
+
+The `venv/` folder is **NOT included in Git** (it is ignored using `.gitignore`).
+This means:
+
+* There will be ✅ NO issues when someone clones the project
+* Each developer creates their own virtual environment locally
+* Dependencies are installed using `requirements.txt`
+
+👉 Never commit the `venv/` folder.
+
+---
+
+#  1. Clone the Repository
+
+```bash
+git clone <your-repo-url>
+cd <project-folder>
+```
+
+---
+
+#  2. Create Virtual Environment
+
+Create a fresh virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate it:
+
+### Windows (PowerShell)
+
+```bash
+venv\Scripts\activate
+```
+
+### Mac/Linux
+
+```bash
+source venv/bin/activate
+```
+
+You should now see `(venv)` in your terminal.
+
+---
+
+#  3. Install Dependencies
+
+If `requirements.txt` exists:
+
+```bash
+pip install -r requirements.txt
+```
+
+If not, install manually:
+
+```bash
+pip install fastapi uvicorn scikit-learn pandas numpy joblib python-multipart
+add all dependencies which are needed and not mentioned here
+```
+
+---
+
+#  4. Train the ML Model (Only First Time)
+
+If the model file does NOT exist:
+
+```
+models/gb_eye_pipeline.pkl
+```
+
+Run:
+
+```bash
+python src/train_model.py
+```
+
+This will generate:
+
+* `models/gb_eye_pipeline.pkl`
+* `data/synthetic_eye_dyslexia_dataset.csv`
+
+If the model already exists → Skip this step.
+
+---
+
+#  5. Start the FastAPI Server
+
+From the project root directory:
+
+```bash
+uvicorn src.server:app --reload
+```
+
+If your `server.py` is not inside `src/`, adjust accordingly:
+
+```bash
+uvicorn server:app --reload
+```
+
+---
+
+#  6. Open in Browser
+
+Once running, you will see:
+
+```
+Uvicorn running on http://127.0.0.1:8000
+```
+
+Open your browser and visit:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+# 📚 7. API Documentation
+
+FastAPI automatically generates interactive documentation.
+
+Open:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# 🛠️ Common Issues & Fixes
+
+### ❌ ModuleNotFoundError
+
+Make sure you are running commands from the project root directory.
+
+### ❌ Model File Not Found
+
+Run:
+
+```bash
+python src/train_model.py
+```
+
+### ❌ Port Already in Use
+
+Run on another port:
+
+```bash
+uvicorn src.server:app --reload --port 8001
+```
+
+---
+
+#  Clean Project Structure (Recommended)
+
+Your repository should contain:
+
+```
+src/
+models/
+data/
+requirements.txt
+.gitignore
+GET_STARTED.md
+```
+
+It should NOT contain:
+
+```
+venv/
+__pycache__/
+.idea/
+```
+
+---
+
+# 🎯 Quick Start (Fastest Way)
+
+After cloning:
+
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+pip install -r requirements.txt
+uvicorn src.server:app --reload
+```
+
+
+```html pages
+
+cd src/web
+python -m http.server 8080
+
+```
+
+Open browser → Done ✅
+
+---
+
+# 🔐 Final Note About venv
+
+Each developer will:
+
+1. Clone the repository
+2. Create their own `venv`
+3. Install dependencies
+
+There will be **no conflicts**, because virtual environments are local and not tracked by Git.
+
+---
+
+---
+
+# 👨‍💻 Contribution Workflow
+
+If you are contributing to this project:
+
+1. Go to the repository Issues section.
+2. Pick an issue and **assign it to yourself**.
+3. Create a separate branch for that issue.
+
+Example:
+
+```bash
+git checkout -b feature/issue-name
+```
+
+or
+
+```bash
+git checkout -b IGL-123-short-description
+```
+
+4. Make your changes.
+5. Commit with a proper message:
+
+```bash
+git commit -m "IGL-123: Short meaningful description"
+```
+
+6. Push your branch:
+
+```bash
+git push origin <branch-name>
+```
+
+7. Create a Pull Request (PR) to the main branch.
+
+⚠️ Do NOT push directly to `master`.
+Always work on your own branch.
+
+---
+
+Happy Coding 
